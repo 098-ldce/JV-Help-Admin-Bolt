@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JV HELP - Admin Dashboard</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="admin-body">
+    <!-- Login Screen -->
+    <div id="login-screen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <img src="https://github.com/CODE-SECX/Images/blob/main/logo.png?raw=true" alt="JV Help Logo" class="login-logo">
+                <h1>JV HELP Admin</h1>
+                <p>Secure Content Management System</p>
+            </div>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-message" id="login-message"></div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="admin-dashboard hidden">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <img src="https://github.com/CODE-SECX/Images/blob/main/logo.png?raw=true" alt="JV Help Logo" class="sidebar-logo">
+                <h3>JV HELP Admin</h3>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="#" class="nav-item" data-section="hero">
+                    <i class="fas fa-home"></i> Hero Content
+                </a>
+                <a href="#" class="nav-item" data-section="activities">
+                    <i class="fas fa-heart"></i> Activities
+                </a>
+                <a href="#" class="nav-item" data-section="gallery">
+                    <i class="fas fa-images"></i> Activities Gallery
+                </a>
+                <a href="#" class="nav-item" data-section="products">
+                    <i class="fas fa-shopping-bag"></i> Products
+                </a>
+                <a href="#" class="nav-item" data-section="thoughts">
+                    <i class="fas fa-comments"></i> User Thoughts
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="sidebar-toggle" id="sidebar-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span id="user-email">admin@jvhelp.org</span>
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="activities-count">0</h3>
+                                <p>Activities</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="gallery-count">0</h3>
+                                <p>Gallery Items</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="products-count">0</h3>
+                                <p>Products</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3 id="thoughts-count">0</h3>
+                                <p>User Thoughts</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-charts">
+                        <div class="chart-card">
+                            <h3>Recent Activity</h3>
+                            <div class="activity-list" id="recent-activity">
+                                <!-- Recent activities will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hero Content Section -->
+                <section id="hero-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Hero Content Management</h2>
+                        <p>Manage the main hero section content in multiple languages</p>
+                    </div>
+                    
+                    <form id="hero-form" class="admin-form">
+                        <div class="form-message" id="hero-message"></div>
+                        
+                        <div class="language-tabs">
+                            <button type="button" class="tab-btn active" data-lang="en">English</button>
+                            <button type="button" class="tab-btn" data-lang="hi">हिंदी</button>
+                            <button type="button" class="tab-btn" data-lang="gu">ગુજરાતી</button>
+                        </div>
+                        
+                        <div class="tab-content active" data-lang="en">
+                            <div class="form-group">
+                                <label for="title_en">Title (English)</label>
+                                <input type="text" id="title_en" name="title_en" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subtitle_en">Subtitle (English)</label>
+                                <input type="text" id="subtitle_en" name="subtitle_en" required>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content" data-lang="hi">
+                            <div class="form-group">
+                                <label for="title_hi">Title (Hindi)</label>
+                                <input type="text" id="title_hi" name="title_hi" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subtitle_hi">Subtitle (Hindi)</label>
+                                <input type="text" id="subtitle_hi" name="subtitle_hi" required>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-content" data-lang="gu">
+                            <div class="form-group">
+                                <label for="title_gu">Title (Gujarati)</label>
+                                <input type="text" id="title_gu" name="title_gu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subtitle_gu">Subtitle (Gujarati)</label>
+                                <input type="text" id="subtitle_gu" name="subtitle_gu" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-save"></i> Update Hero Content
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Activities Section -->
+                <section id="activities-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Activities Management</h2>
+                        <button class="add-btn" id="add-activity-btn">
+                            <i class="fas fa-plus"></i> Add New Activity
+                        </button>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <table class="data-table" id="activities-table">
+                            <thead>
+                                <tr>
+                                    <th>Title (EN)</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Order</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="activities-tbody">
+                                <!-- Activities will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Activities Gallery Section -->
+                <section id="gallery-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Activities Gallery Management</h2>
+                        <button class="add-btn" id="add-gallery-btn">
+                            <i class="fas fa-plus"></i> Add New Gallery Item
+                        </button>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <table class="data-table" id="gallery-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title (EN)</th>
+                                    <th>Category</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gallery-tbody">
+                                <!-- Gallery items will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Products Management</h2>
+                        <button class="add-btn" id="add-product-btn">
+                            <i class="fas fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <table class="data-table" id="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name (EN)</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="products-tbody">
+                                <!-- Products will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- User Thoughts Section -->
+                <section id="thoughts-section" class="content-section">
+                    <div class="section-header">
+                        <h2>User Thoughts Management</h2>
+                        <div class="section-actions">
+                            <button class="filter-btn" id="filter-thoughts-btn">
+                                <i class="fas fa-filter"></i> Filter
+                            </button>
+                            <button class="export-btn" id="export-thoughts-btn">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="data-table-container">
+                        <table class="data-table" id="thoughts-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Thought</th>
+                                    <th>Language</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="thoughts-tbody">
+                                <!-- Thoughts will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="content-section">
+                    <div class="section-header">
+                        <h2>System Settings</h2>
+                        <p>Configure system-wide settings and preferences</p>
+                    </div>
+                    
+                    <div class="settings-grid">
+                        <div class="settings-card">
+                            <h3>Security Settings</h3>
+                            <form id="security-form">
+                                <div class="form-group">
+                                    <label for="current-password">Current Password</label>
+                                    <input type="password" id="current-password" name="current-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="new-password">New Password</label>
+                                    <input type="password" id="new-password" name="new-password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirm-password">Confirm New Password</label>
+                                    <input type="password" id="confirm-password" name="confirm-password">
+                                </div>
+                                <button type="submit" class="submit-btn">
+                                    <i class="fas fa-key"></i> Update Password
+                                </button>
+                            </form>
+                        </div>
+                        
+                        <div class="settings-card">
+                            <h3>System Information</h3>
+                            <div class="info-list">
+                                <div class="info-item">
+                                    <span class="info-label">Version:</span>
+                                    <span class="info-value">1.0.0</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Last Backup:</span>
+                                    <span class="info-value" id="last-backup">Never</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-label">Database Status:</span>
+                                    <span class="info-value status-online">Online</span>
+                                </div>
+                            </div>
+                            <button class="submit-btn" id="backup-btn">
+                                <i class="fas fa-database"></i> Create Backup
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Activity Modal -->
+    <div id="activity-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="activity-modal-title">Add New Activity</h3>
+                <button class="close-btn" data-modal="activity-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="activity-form" class="admin-form">
+                    <div class="form-message" id="activity-form-message"></div>
+                    
+                    <div class="language-tabs">
+                        <button type="button" class="tab-btn active" data-lang="en">English</button>
+                        <button type="button" class="tab-btn" data-lang="hi">हिंदी</button>
+                        <button type="button" class="tab-btn" data-lang="gu">ગુજરાતી</button>
+                    </div>
+                    
+                    <div class="tab-content active" data-lang="en">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activity_title_en">Title (English)</label>
+                                <input type="text" id="activity_title_en" name="title_en" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity_description_en">Description (English)</label>
+                            <textarea id="activity_description_en" name="description_en" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-lang="hi">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activity_title_hi">Title (Hindi)</label>
+                                <input type="text" id="activity_title_hi" name="title_hi" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity_description_hi">Description (Hindi)</label>
+                            <textarea id="activity_description_hi" name="description_hi" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-lang="gu">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="activity_title_gu">Title (Gujarati)</label>
+                                <input type="text" id="activity_title_gu" name="title_gu" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity_description_gu">Description (Gujarati)</label>
+                            <textarea id="activity_description_gu" name="description_gu" rows="4" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="activity_category">Category</label>
+                            <select id="activity_category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="welfare">Welfare</option>
+                                <option value="education">Education</option>
+                                <option value="animal">Animal Care</option>
+                                <option value="conservation">Conservation</option>
+                                <option value="rescue">Rescue</option>
+                                <option value="feeding">Feeding</option>
+                                <option value="support">Support</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="activity_display_order">Display Order</label>
+                            <input type="number" id="activity_display_order" name="display_order" min="0" value="0">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activity_icon_url">Icon URL (Optional)</label>
+                        <input type="url" id="activity_icon_url" name="icon_url">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="activity_is_active" name="is_active" checked>
+                            <span class="checkmark"></span>
+                            Active
+                        </label>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" data-modal="activity-modal">Cancel</button>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-save"></i> Save Activity
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="gallery-modal" class="modal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="gallery-modal-title">Add New Gallery Item</h3>
+                <button class="close-btn" data-modal="gallery-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="gallery-form" class="admin-form">
+                    <div class="form-message" id="gallery-form-message"></div>
+                    
+                    <div class="language-tabs">
+                        <button type="button" class="tab-btn active" data-lang="en">English</button>
+                        <button type="button" class="tab-btn" data-lang="hi">हिंदी</button>
+                        <button type="button" class="tab-btn" data-lang="gu">ગુજરાતી</button>
+                    </div>
+                    
+                    <div class="tab-content active" data-lang="en">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gallery_title_en">Title (English)</label>
+                                <input type="text" id="gallery_title_en" name="title_en" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery_category_en">Category (English)</label>
+                                <input type="text" id="gallery_category_en" name="category_en" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_description_en">Description (English)</label>
+                            <textarea id="gallery_description_en" name="description_en" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_quote_en">Quote (English)</label>
+                            <textarea id="gallery_quote_en" name="quote_en" rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-lang="hi">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gallery_title_hi">Title (Hindi)</label>
+                                <input type="text" id="gallery_title_hi" name="title_hi" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery_category_hi">Category (Hindi)</label>
+                                <input type="text" id="gallery_category_hi" name="category_hi" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_description_hi">Description (Hindi)</label>
+                            <textarea id="gallery_description_hi" name="description_hi" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_quote_hi">Quote (Hindi)</label>
+                            <textarea id="gallery_quote_hi" name="quote_hi" rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" data-lang="gu">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gallery_title_gu">Title (Gujarati)</label>
+                                <input type="text" id="gallery_title_gu" name="title_gu" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery_category_gu">Category (Gujarati)</label>
+                                <input type="text" id="gallery_category_gu" name="category_gu" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_description_gu">Description (Gujarati)</label>
+                            <textarea id="gallery_description_gu" name="description_gu" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="gallery_quote_gu">Quote (Gujarati)</label>
+                            <textarea id="gallery_quote_gu" name="quote_gu" rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h4>Images</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="gallery_image">Main Image URL</label>
+                                <input type="url" id="gallery_image" name="image" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="gallery_date">Date</label>
+                                <input type="text" id="gallery_date" name="date" placeholder="e.g., December 2024">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Additional Images (Optional)</label>
+                            <div class="image-inputs">
+                                <input type="url" id="gallery_image_lm_1" name="image_lm_1" placeholder="Image 1 URL">
+                                <input type="url" id="gallery_image_lm_2" name="image_lm_2" placeholder="Image 2 URL">
+                                <input type="url" id="gallery_image_lm_3" name="image_lm_3" placeholder="Image 3 URL">
+                                <input type="url" id="gallery_image_lm_4" name="image_lm_4" placeholder="Image 4 URL">
+                                <input type="url" id="gallery_image_lm_5" name="image_lm_5" placeholder="Image 5 URL">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="gallery_display_order">Display Order</label>
+                            <input type="number" id="gallery_display_order" name="display_order" min="0" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="gallery_is_active" name="is_active" checked>
+                                <span class="checkmark"></span>
+                                Active
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button type="button" class="cancel-btn" data-modal="gallery-modal">Cancel</button>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-save"></i> Save Gallery Item
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
